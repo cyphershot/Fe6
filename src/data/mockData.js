@@ -6,7 +6,7 @@ export const mockDataTeam = [
       email: "25000",
       age: 25,
       phone: "Pending",
-      access: "admin",
+      access: "view",
     },
     {
       id: 2,
@@ -14,7 +14,7 @@ export const mockDataTeam = [
       email: "25000",
       age: 42,
       phone: "Pending",
-      access: "manager",
+      access: "view",
     },
     {
       id: 3,
@@ -22,7 +22,7 @@ export const mockDataTeam = [
       email: "25000",
       age: 45,
       phone: "Pending",
-      access: "user",
+      access: "view",
     },
     {
       id: 4,
@@ -30,7 +30,7 @@ export const mockDataTeam = [
       email: "25000",
       age: 16,
       phone: "Accept",
-      access: "admin",
+      access: "view",
     },
     {
       id: 5,
@@ -38,7 +38,8 @@ export const mockDataTeam = [
       email: "25000",
       age: 31,
       phone: "Pending",
-      access: "user",
+      access: "view",
+
     },
     {
       id: 6,
@@ -46,7 +47,8 @@ export const mockDataTeam = [
       email: "25000",
       age: 150,
       phone: "Pending",
-      access: "manager",
+      access: "view",
+
     },
     {
       id: 7,
@@ -54,7 +56,8 @@ export const mockDataTeam = [
       email: "25000",
       age: 44,
       phone: "Pending",
-      access: "user",
+      access: "view",
+
     },
     {
       id: 8,
@@ -62,7 +65,8 @@ export const mockDataTeam = [
       email: "25000",
       age: 36,
       phone: "Pending",
-      access: "user",
+      access: "view",
+
     },
     {
       id: 9,
@@ -70,7 +74,8 @@ export const mockDataTeam = [
       email: "25000",
       age: 65,
       phone: "Accept",
-      access: "admin",
+      access: "view",
+
     },
   ];
   

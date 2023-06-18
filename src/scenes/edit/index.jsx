@@ -2,27 +2,13 @@ import {  Box, Button, TextField, useMediaQuery } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Header from "../../components/Header";
-import React,{useContext, useState} from 'react';
+import React,{useState} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css'
-import { empRegister } from "../../Services/allApi";
-import { useNavigate } from "react-router-dom";
-import { addData } from "../../components/contexts/ContextShare";
-
-
-
-  
-
 
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-
-  // use navigate
-  const navigate = useNavigate()
-  // state to share data from register to all contacts
-  const {useradd,setUserAdd} = useContext(addData) 
-
 
   const handleFormSubmit = (values) => {
     console.log(values);
@@ -53,19 +39,8 @@ const Form = () => {
 
   console.log(inputData);
 
-  // to update status
-  const setStatusvalue = (e)=>{
-    setStatus(e.value)
-  }
-
-  const setProfile = (e)=>{
-    // console.log(e);
-    setImage(e.target.files[0])
-  }
-  console.log(image);
-
   // handleSubmit
-  const handleSubmited = async (e)=>{
+  const handleSubmited = (e)=>{
     e.preventDefault()
     const {customerName,companyName,email,contactNumber,GSTNumber,requireService,qty,orderValue} = inputData;
     if(customerName===""){
@@ -84,53 +59,8 @@ const Form = () => {
       toast.error("qty required!!")
     }else if(orderValue===""){
       toast.error("order value required!!")
-    }else if(image === ""){
-      toast.error("File upload is required!!")
     }else{
-      //toast.success("Registration Success")
-      //api call
-
-      const data = new FormData()
-      data.append("customerName",customerName)
-      data.append("companyName",companyName)
-      data.append("email",email)
-      data.append("contactNumber",contactNumber)
-      data.append("GSTNumber",GSTNumber)
-      data.append("requireService",requireService)
-      data.append("qty",qty)
-      data.append("orderValue",orderValue)
-      data.append("user_profile",image)
-
-      //  console.log(data);
-      const headerConfig = {
-        "content-Type":"multipart/form-data"
-      }
-
-      const response = await empRegister(data,headerConfig)
-      console.log(response);
-      if(response.status===200){
-        // form register success - all state reset
-        setInputData({
-          ...inputData,
-          customerName:"",
-          companyName:"",
-          email:"",
-          contactNumber:"",
-          GSTNumber:"",
-          requireService:"",
-          qty:"",
-          orderValue:""
-
-        })
-        setImage("")
-        // share data to all contact page via use context
-        setUserAdd(response.data)
-
-        // navigate  to view sales orders
-        navigate('/team')
-
-      }
-
+      toast.success("Registration Success")
     }
   }
 
@@ -264,15 +194,6 @@ const Form = () => {
                 helperText={touched.ordervalue && errors.ordervalue}
                 sx={{ gridColumn: "span 2" }}
               />
-             <TextField
-  fullWidth
-  variant="filled"
-  type="file"
-  label="Upload File"
-  name="user_profile"
-  onChange={setProfile}
-  sx={{ gridColumn: "span 2" }}
-/>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button onClick={handleSubmited} type="submit" color="secondary" variant="contained">

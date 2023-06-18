@@ -91,7 +91,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="170px"
                   height="120px"
-                  src={`../../assets/FE6-01.png`}
+                  src={`https://fe6-xi.vercel.app/assets/FE6-01.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -125,7 +125,7 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Data
+             
             </Typography>
             <Item
               title="Create new sales Order"
@@ -148,10 +148,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-           
-
- 
           </Box>
         </Menu>
       </ProSidebar>

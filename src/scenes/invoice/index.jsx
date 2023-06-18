@@ -1,5 +1,6 @@
 import React from 'react';
-import './style.css'
+import { Link } from 'react-router-dom';
+import './style.css';
 
 function Invoice() {
   return (
@@ -9,11 +10,9 @@ function Invoice() {
           <section>
             <h1>Invoice</h1>
             <span>06/06/2023</span> <br />
-            <span>Name:Noeal thomas</span> <br />
-            <span>Company Name:cyphershot</span>
-
+            <span>Name: Noeal Thomas</span> <br />
+            <span>Company Name: Cyphershot</span>
           </section>
-
           <section>
             <span>89 289</span>
           </section>
@@ -28,13 +27,17 @@ function Invoice() {
 
           <section>
             <figure>
-              <span><strong>Materials</strong> (large)</span>
+              <span>
+                <strong>Materials</strong> (large)
+              </span>
               <span>1</span>
               <span>2.90</span>
             </figure>
 
             <figure>
-              <span><strong>Materials</strong> (small)</span>
+              <span>
+                <strong>Materials</strong> (small)
+              </span>
               <span>2</span>
               <span>7.00</span>
             </figure>
@@ -47,7 +50,7 @@ function Invoice() {
         </main>
 
         <footer>
-          <a href="#0">Upload</a>
+          <Link to="/edit">Upload</Link>
           <a href="#0">Cancel</a>
         </footer>
       </div>
