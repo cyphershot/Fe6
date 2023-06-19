@@ -76,7 +76,7 @@ function Login() {
                 </p>
               </div>
               <div className="login-form-submit-btn">
-                <button type="submit" onClick={submit}>Create an Account</button>
+                <button type="submit" onClick={submit}>Login</button>
               </div>
               <div className="login-form-5">
                 <p>

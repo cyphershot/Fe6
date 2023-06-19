@@ -10,30 +10,25 @@ import { Alert } from "react-bootstrap";
 import { getallusers } from "../../Services/allApi";
 
 const Team = () => {
-  // to hold all users
   const [userdata, setUserdata] = useState([]);
   
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const { useradd, setUserAdd } = useContext(addData);
-  console.log(useradd);
 
-  // api call to get all users
   const getalluserData = async () => {
     const response = await getallusers();
     if (response.status === 200) {
-      const updatedData = response.data.map((user, index) => ({
+      const updatedData = response.data.map((user) => ({
         ...user,
-        id: index + 1, // Assigning a unique id to each user
+        id: user._id, // Assigning MongoDB _id as the unique id for each user
       }));
       setUserdata(updatedData);
     } else {
       console.log('Cannot fetch data!!!');
     }
   }
-
-  console.log(userdata);
 
   useEffect(() => {
     getalluserData();
@@ -61,7 +56,7 @@ const Team = () => {
     },
     {
       field: "email",
-      headerName: "email",
+      headerName: "Email",
       flex: 1,
     },
     {
@@ -76,7 +71,7 @@ const Team = () => {
       headerName: "Access Level",
       flex: 1,
       renderCell: ({ row }) => {
-        const userId = row.id; // Assuming you have an "id" field in your user object
+        const userId = row.id;
         return (
           <Box
             width="60%"

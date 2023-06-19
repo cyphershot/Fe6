@@ -2,17 +2,39 @@ import {  Box, Button, TextField, useMediaQuery } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Header from "../../components/Header";
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css'
+import { viewUser } from "../../Services/allApi";
+import { BASE_URL } from "../../Services/base_url";
+import { useParams } from "react-router-dom";
+
+
+
+  
 
 
 const Form = () => {
+
+// get path parameter from asociated route
+  const {id}  = useParams()
+
+  // get a particular users details api
+  const userDetails = async ()=>{
+    const {data}= await viewUser(id)
+    setInputData(data)
+    // console.log(data);
+  }
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit = (values) => {
     console.log(values);
   };
+
+  useEffect(()=>{
+    userDetails()
+  } )
 
   // state to hold mormal inputs
   const [inputData,setInputData] = useState({
@@ -26,6 +48,8 @@ const Form = () => {
     qty:"",
     orderValue:""
   })
+
+
   // status
   const [status,setStatus] = useState("Active")
   // image state
@@ -37,7 +61,7 @@ const Form = () => {
    setInputData({...inputData,[name]:value})
   }
 
-  console.log(inputData);
+  // console.log(inputData);
 
   // handleSubmit
   const handleSubmited = (e)=>{

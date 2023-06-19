@@ -1,26 +1,64 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import './style.css';
+import { addData } from '../../components/contexts/ContextShare';
+import { getallusers, viewUser } from '../../Services/allApi';
 
 function Invoice() {
+  const { id } = useParams();
+  const [userDetail, setUserDetail] = useState({});
+  const { useradd, setUserAdd } = useContext(addData);
+
+  const userDetails = async () => {
+    const userData = await viewUser(id);
+    setUserDetail(userData.data);
+  }
+
+  useEffect(() => {
+    userDetails();
+  }, []);
+
+  const [userdata, setUserdata] = useState([]);
+
+  const getalluserData = async () => {
+    try {
+      const response = await getallusers();
+      if (response.status === 200) {
+        const updatedData = response.data.map((user, index) => ({
+          ...user,
+          id: index + 1, // Assigning a unique id to each user
+        }));
+        setUserdata(updatedData);
+      } else {
+        console.log('Cannot fetch data!!!');
+      }
+    } catch (error) {
+      console.log('Error while fetching data:', error);
+    }
+  }
+
+  useEffect(() => {
+    getalluserData();
+  }, []);
+
   return (
     <div className="container">
       <div className="invoice">
         <header>
           <section>
             <h1>Invoice</h1>
-            <span>06/06/2023</span> <br />
-            <span>Name: Noeal Thomas</span> <br />
-            <span>Company Name: Cyphershot</span>
+            <span>Email: {userDetail.email}</span> <br />
+            <span>Name: {userDetail.customerName}</span> <br />
+            <span>Company Name: {userDetail.companyName}</span>
           </section>
           <section>
-            <span>89 289</span>
+            <span>GST: {userDetail.GSTNumber}</span>
           </section>
         </header>
 
         <main>
           <section>
-            <span>Description</span>
+            <span>Service Name</span>
             <span>Quantity</span>
             <span>Amount</span>
           </section>
@@ -28,10 +66,10 @@ function Invoice() {
           <section>
             <figure>
               <span>
-                <strong>Materials</strong> (large)
+                <strong>{userDetail.requireService}</strong>
               </span>
-              <span>1</span>
-              <span>2.90</span>
+              <span>{userDetail.qty}</span>
+              <span>{userDetail.orderValue}</span>
             </figure>
 
             <figure>
@@ -45,12 +83,12 @@ function Invoice() {
 
           <section>
             <span>Total</span>
-            <span>9.90</span>
+            <span>{userDetail.orderValue}</span>
           </section>
         </main>
 
         <footer>
-          <Link to="/edit">Upload</Link>
+          <Link to={`/edit/${id}`}>edit/Upload</Link>
           <a href="#0">Cancel</a>
         </footer>
       </div>

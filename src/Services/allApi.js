@@ -16,7 +16,11 @@ export const getallusers = async()=>{
   return await commonRequest("GET",`${BASE_URL}/get-all-employees`,"")
 }
 
+// get a particular user api
+export const viewUser = async(id) =>{
+  return await commonRequest("GET",`${BASE_URL}/employee/view/${id}`,"")
 
+}
 
 
 
