@@ -11,7 +11,9 @@ import Invoice from './scenes/invoice';
 import Login from './scenes/login';
 import Register from './scenes/Register';
 import Edit from './scenes/edit';
-
+import PrivateRoute from './auth/PrivateRoute';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -21,6 +23,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
+          <ToastContainer position="top-right" />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -28,17 +31,52 @@ function App() {
               path="*"
               element={
                 <>
-                  
                   <Sidebar />
                   <main className="content">
-                  <Topbar />
+                    <Topbar />
 
                     <Routes>
-                      <Route path="/dash" element={<Dashboard />} />
-                      <Route path="/team" element={<Team />} />
-                      <Route path="/form" element={<Form />} />
-                      <Route path="/invoice/:id" element={<Invoice />} />
-                      <Route path="/edit/:id" element={<Edit />} />
+                      <Route
+                        path="/dash"
+                        element={
+                          <PrivateRoute>
+                            <Dashboard />
+                          </PrivateRoute>
+                        }
+                      />
+
+                      <Route
+                        path="/team"
+                        element={
+                          <PrivateRoute>
+                            <Team />
+                          </PrivateRoute>
+                        }
+                      />
+                      <Route
+                        path="/form"
+                        element={
+                          <PrivateRoute>
+                            <Form />
+                          </PrivateRoute>
+                        }
+                      />
+                      <Route
+                        path="/invoice/:id"
+                        element={
+                          <PrivateRoute>
+                            <Invoice />
+                          </PrivateRoute>
+                        }
+                      />
+                      <Route
+                        path="/edit/:id"
+                        element={
+                          <PrivateRoute>
+                            <Edit />
+                          </PrivateRoute>
+                        }
+                      />
                     </Routes>
                   </main>
                 </>
