@@ -34,7 +34,6 @@ function App() {
                   <Sidebar />
                   <main className="content">
                     <Topbar />
-
                     <Routes>
                       <Route
                         path="/dash"
