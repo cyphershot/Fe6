@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const APIService = axios.create({
-  baseURL: process.env.REACT_API_URL,
+  baseURL: `${process.env.REACT_APP_API_URL}`,
 });
 
 APIService.interceptors.response.use(
@@ -12,7 +12,6 @@ APIService.interceptors.response.use(
   error => {
     if (axios.isCancel(error)) {
     } else if (error.response) {
-      console.log('API ERROR');
       const errorMessage = error.response.data.response;
       toast.error(errorMessage);
     } else {
